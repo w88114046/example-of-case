@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>探索</title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        a{text-decoration: none;}
+        #wrap{
+            position: relative;
+            width:512px;
+            height:768px;
+            margin: 100px auto;
+            border: 1px solid #000;
+            background:url(img/bg0.jpg) no-repeat 0/512px;
+        }
+        #diff{
+            position: absolute;
+            top:0px;
+            left:0px;
+            width: 100%;
+            height: 100%;
+        }
+        #diff h1{
+            text-align: center;
+            padding-top:50px;
+            color:#fff; 
+        }
+        #diff ul{
+            margin-top:70px; 
+        }
+        #diff ul li{
+            width: 200px;
+            height: 40px;
+            margin: 70px auto;
+            border:1px solid black;
+            border-radius: 10px;
+            background-color: #f4dbaf;
+            text-align: center;
+            font-size: 30px;
+            font-weight: bolder;
+            color:#3972B1;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color .5s;
+        }
+        #diff #author{
+            position: absolute;
+            bottom: 0px;
+            right:0px;
+            font-size: 25px;
+            color:#fff;
+        }
+        #diff ul li:hover{
+            background-color: pink;
+        }
+        #game,#gameover{
+            display: none;
+            overflow: hidden;
+            position: absolute;
+            top:0px;
+            left:0px;
+            width: 100%;
+            height:100%;
+            
+        }
+        #game .plane, #game .bul,#game .enemy,#game .boom{
+            position: absolute;
+        }
+        #game .boom{
+            transition:opacity  1s;
+        }
+        #score{
+            display: none;
+            position: absolute;
+            top:5px;
+            left:5px;
+            color:#fff;
+            font-size: 15px;
+        }
+        #game .plane.bling{
+            animation: bling .5s linear 3;
+        }
+        @keyframes bling {
+            0% {opacity: 1}
+            25% {opacity:0}
+            50% {opacity:0.7}
+            75% {opacity:0}
+            100% {opacity: 1}
+        }
+        #gameover .scoreBox{
+            position: absolute;
+            top:100px;
+            left:100px;
+            width: 310px;
+            height: 125px;
+            border: 2px solid #fff;
+            background-color: #000;
+            color:#fff;
+            text-indent: 20px;
+            font-size: 20px;
+        }
+        #gameover .replay{
+            position: absolute;
+            bottom: 100px;
+            left:185px;
+            width: 150px;
+            height: 45px;
+            text-align: center;
+            background-color: #000;
+            border: 1px solid #fff;
+            color: #fff;
+            font-size: 25px;
+            font-weight: bolder;
+            line-height: 45px;
+            cursor: pointer;
+        }
+        #gameover .scoreBox .finalScore{
+            width: 120px;
+            margin:auto;
+            color:skyblue;
+            font-size: 45px;
+        }
+        #boold {
+            display: none;
+            position: absolute;
+            top:5px;
+            right:20px;
+            color:#fff;
+            font-size: 15px;
+        }
+        #HP{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrap">
+        <!-- 选择难度区域 -->
+        <div id="diff">
+            <h1>飞机大战进化版</h1>
+            <ul>
+                <li>简单模式</li>
+                <li>一般模式</li>
+                <li>困难模式</li>
+                <li>地狱模式</li>
+            </ul>
+            <p id="author">52-我宁愿探索未知.js</p>
+        </div>
+        <!-- 游戏开始 -->
+        <div id="game">
+            </div>
+        <!-- 死掉之后 -->
+            <div id="gameover">
+                <div class="scoreBox">你的最终得分为：
+                    <div class="finalScore">0</div>
+                </div>
+                <div class="replay">再来一次</div>
+            </div>
+        <div id="score">0</div>
+        <div id="boold">血量：
+            <span id="HP">3</span>
+        </div>
+        
+        </div>
+    </div>
+    <script>
+        let oWrap=document.getElementById("wrap"),
+            aLi=document.querySelectorAll("#diff ul li"),
+            oDiff=document.getElementById("diff"),
+            oGame=document.getElementById("game"),
+            HP=document.getElementById("HP"),
+            boold=document.getElementById("boold"),
+            oGameover=document.getElementById("gameover"),
+            allBul=oGame.getElementsByClassName("bul"),
+            score=document.getElementById("score"),
+            aAirplane=oGame.getElementsByClassName("plane"),
+            scoreBox=oGameover.getElementsByClassName("scoreBox")[0],
+            finalScore=document.getElementsByClassName("finalScore")[0],
+            mark=0,
+            move=null,
+            bulidEnemyTimer,
+            bulMoveTimer,
+            oReplay=document.getElementsByClassName("replay")[0],
+            map=["img/bg1.jpg","img/bg2.jpg","img/bg3.jpg","img/bg4.jpg"];
+            aAirplane.PH=3;
+        //添加点击事件   
+        for(let i=0;i<aLi.length;i++){
+            aLi[i].onclick=function(event){
+                console.log(event.pageX);
+                
+                play(i,event);
+            }
+        }
+        //选择模式，游戏开始
+        function play(i,event){
+            show(i);
+            player(i,event);
+            enemy(i,);
+
+        }
+        //游戏一开始，页面转换
+        function show(i){
+            oDiff.style.display="none";
+            oGameover.style.display="none";
+            oGame.style.display="block";
+            score.style.display="block";
+            boold.style.display="block";
+            oGame.style.backgroundImage=`url(${map[i]})`;
+        }
+        //我军生成
+        function player(i,event){
+            let oAirplane=document.createElement("img"),
+                startLeft=null,
+                startTop=null;
+            oAirplane.src="img/plane_0.png";
+            oAirplane.HP=3;
+            oAirplane.width=50;
+            oAirplane.height=50;
+            oAirplane.className="plane";
+            startLeft=event.pageX - oWrap.offsetLeft - oAirplane.width/2;
+            startTop=event.pageY-oWrap.offsetTop -  oAirplane.height/2;
+            oAirplane.style.left=startLeft  + "px";
+            oAirplane.style.top=startTop + "px";
+            oGame.appendChild(oAirplane);
+            move=planeMove(event.pageX,event.pageY,startLeft,startTop,oAirplane,oAirplane.width,oAirplane.height);
+            bullet(oAirplane,i);
+        }
+        //小飞机移动
+        function planeMove(startX,startY,sL,sT,oAirplane,width,height){
+            let minTop=0,
+                maxTop=oGame.offsetHeight-height,
+                minLeft=-width/2,
+                maxLeft=oGame.offsetWidth-width/2;
+            document.addEventListener("mousemove",move,false);
+            function move(){
+                let nowLocationX=event.pageX-startX,
+                    nowLocationY=event.pageY-startY,
+                    newLeft =sL +nowLocationX,
+                    newTop = sT + nowLocationY;
+                newLeft=Math.min(maxLeft,newLeft);
+                newLeft=Math.max(newLeft,minLeft);
+                newTop=Math.min(maxTop,newTop);
+                newTop=Math.max(newTop,minTop);
+                oAirplane.style.left=newLeft+"px";
+                oAirplane.style.top=newTop+"px";
+            }
+            return move;
+        }
+        //子弹
+        function bullet(oAirplane,i){
+            let time=[30,200,100,600][i];
+            bulidBullet();
+            function bulidBullet(){
+                let bul=document.createElement("img");
+                bul.src="img/fire.png";
+                bul.width=25;
+                bul.height=35;
+                bul.className="bul";
+                let bulLeft=oAirplane.offsetLeft + oAirplane.width/2-bul.width/2,
+                    bulTop=oAirplane.offsetTop;
+                bul.style.top=bulTop + "px";
+                bul.style.left=bulLeft + "px";
+                oGame.appendChild(bul);
+                bulMove();
+                function bulMove(){ 
+                    if(!bul.parentNode){
+                        return;
+                    }
+                    bulTop -=10;
+                    bul.style.top=bulTop+"px";
+                    
+                    if( parseFloat(bul.style.top)<=-bul.height){
+                        oGame.removeChild(bul);   
+                    }else{
+                        requestAnimationFrame(bulMove);
+                    }
+                }
+                requestAnimationFrame(bulMove);
+                bulMoveTimer=setTimeout(bulidBullet ,time);
+            }
+            
+            
+        }
+        //敌军
+        function enemy(i){
+            let smallEnemy=document.createElement("img"),
+                timer=[300,200,100,80][i],
+                index=1,
+                maxTop=oWrap.offsetHeight;
+            smallEnemy.src="img/enemy_small.png";
+            smallEnemy.width=54;
+            smallEnemy.height=40;
+            smallEnemy.className="enemy"
+            //
+            let bigEnemy=document.createElement("img"),
+                time=[300,200,100,80][i];
+            bigEnemy.src="img/enemy_big.png";
+            bigEnemy.width=130;
+            bigEnemy.height=100;
+            bigEnemy.className="enemy"
+
+            bulidEnemy();
+            function bulidEnemy(){
+                if(!(index%5)){
+                    let oBigEnemy=bigEnemy.cloneNode(),
+                        top=0,
+                        left=parseFloat(Math.random()*oWrap.offsetWidth-oBigEnemy.width/2);
+                    index++;
+                    oBigEnemy.HP=5;
+                    oBigEnemy.style.top=top+"px";
+                    oBigEnemy.style.left=left+"px";
+                    oGame.appendChild(oBigEnemy);
+                    oBigEnemy.speed=Math.floor(Math.random()*2+1);
+                    let bigTop=0;
+                    function speed(){
+                        if(!oBigEnemy.parentNode)return;
+                        bigTop+=oBigEnemy.speed;
+                        oBigEnemy.style.top=bigTop+"px";
+                        if(bigTop>=maxTop){
+                            oGame.removeChild(oBigEnemy);
+                        }else{
+                            requestAnimationFrame(speed);
+                        } 
+                         //撞子弹
+                         collision2(oBigEnemy);
+                         function collision2(enemy){
+                            let aPlane=aAirplane[0];
+                            if( !enemy.parentNode)return;
+                            if(!aPlane)return;
+                            if(collision(enemy,aPlane)){
+                                boomEnemy(enemy);
+                                oGame.removeChild(enemy);
+                                aPlane.HP--;
+                                HP.innerHTML= aPlane.HP;
+                                if(aPlane.HP===0){
+                                    boomPlane(aPlane);
+                                    clearTimeout(bulidEnemyTimer);
+                                    clearTimeout(bulMoveTimer);
+                                    document.removeEventListener("mousemove",move,false);
+                                    oGame.removeChild(aPlane);
+                                    
+                                    setTimeout(()=>{
+                                        gameover();
+                                    },2000)
+                                }else{
+                                    aPlane.classList.add("bling");
+                                    setTimeout(()=>{
+                                        aPlane.classList.remove("bling");
+                                    },1500)
+                                }
+                            }
+                        }
+                         beKilled(oBigEnemy);
+                         function beKilled(enemy){
+                            if(!enemy.parentNode)return;
+                            let aBul=[...allBul];
+                            for(let j=0;j<aBul.length;j++){
+                                let b=aBul[j],
+                                    e=enemy;
+                                if(collision(b,e)){
+                                    e.HP--;
+                                    mark++;
+                                    oGame.removeChild(b);
+                                    if(e.HP===0){
+                                        oGame.removeChild(e);
+                                        score.innerHTML=mark;
+                                        boomEnemy(e);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        function boomEnemy(e){
+                            let oBoom=document.createElement("img");
+                            oBoom.src="img/boom_big.png";
+                            oBoom.width=e.width;
+                            oBoom.height=e.height;
+                            oBoom.className="boom";
+                            oBoom.style.left=e.style.left;
+                            oBoom.style.top=e.style.top;
+                            oGame.appendChild(oBoom);
+                            setTimeout(()=>{ oBoom.style.opacity=0;}  
+                            )
+                            setTimeout(()=>{oGame.removeChild(oBoom);},1000)
+                        }
+                    }
+                    requestAnimationFrame(speed);
+                }else{
+                    let oSmallEnemy=smallEnemy.cloneNode(),
+                        top=0,
+                        left=parseFloat(Math.random()*oWrap.offsetWidth-oSmallEnemy.width/2);
+                    index++;
+                    oSmallEnemy.HP=Math.floor(Math.random()*2+1);
+                    oSmallEnemy.style.top=top+"px";
+                    oSmallEnemy.style.left=left+"px";
+                    oGame.appendChild(oSmallEnemy);
+                    oSmallEnemy.speed=Math.floor(Math.random()*2+2);
+                    let smallTop=0;
+                    function speed(){
+                        if(!oSmallEnemy.parentNode){return;} 
+                        smallTop+= oSmallEnemy.speed;
+                        oSmallEnemy.style.top=smallTop+"px";
+                        
+                        if(smallTop>=maxTop){
+                            oGame.removeChild(oSmallEnemy);
+                        }else{
+                            requestAnimationFrame(speed);
+                        }
+                        collision2(oSmallEnemy);
+                        function collision2(enemy){
+                            let aPlane=aAirplane[0];
+                            if( !enemy.parentNode)return;
+                            if(!aPlane)return;
+                            if(collision(enemy,aPlane)){
+                                boomEnemy(enemy);
+                                oGame.removeChild(enemy);
+                                aPlane.HP--;
+                                HP.innerHTML= aPlane.HP;
+                                if(aPlane.HP===0){
+                                    boomPlane(aPlane);
+                                    clearTimeout(bulidEnemyTimer);
+                                    clearTimeout(bulMoveTimer);
+                                    document.removeEventListener("mousemove",move,false);
+                                    oGame.removeChild(aPlane);
+                                    
+                                    setTimeout(()=>{
+                                        gameover();
+                                    },2000)
+                                }else{
+                                    aPlane.classList.add("bling");
+                                    setTimeout(()=>{
+                                        aPlane.classList.remove("bling");
+                                    },1500)
+                                }
+                            }
+                        }
+                        beKilled(oSmallEnemy);
+                        function beKilled(enemy){
+                            if(!enemy.parentNode)return;
+                            let aBul=[...allBul];
+                            for(let j=0;j<aBul.length;j++){
+                                let b=aBul[j],
+                                    e=enemy;
+                                if(collision(b,e)){
+                                    e.HP--;
+                                    mark++;
+                                    oGame.removeChild(b);
+                                    if(e.HP===0){
+                                        oGame.removeChild(e);
+                                        score.innerHTML=mark;
+                                        boomEnemy(e)
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        function boomEnemy(e){
+                            let oBoom=document.createElement("img");
+                            oBoom.src="img/boom_small.png";
+                            oBoom.width=e.width;
+                            oBoom.height=e.height;
+                            oBoom.className="boom";
+                            oBoom.style.left=e.style.left;
+                            oBoom.style.top=e.style.top;
+                            oGame.appendChild(oBoom);
+                            setTimeout(()=>{ oBoom.style.opacity=0;}  
+                            )
+                            setTimeout(()=>{oGame.removeChild(oBoom);},1000)
+                        }
+                    }
+                    requestAnimationFrame(speed);
+                }
+                bulidEnemyTimer=setTimeout(bulidEnemy , timer)
+                
+            }
+        }
+        //碰撞
+        function collision(bul,enemy){
+            let T1= bul.offsetTop, 
+                B1=T1+bul.offsetHeight,
+                L1=bul.offsetLeft,
+                R1=L1+bul.offsetWidth,
+                T2=enemy.offsetTop,
+                B2=T2+enemy.offsetHeight,
+                L2=enemy.offsetLeft,
+                R2=L2+enemy.offsetWidth;    
+            if(!(R2<L1 || T2>B1 || L2>R1 || B2<T1)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        //自杀
+        function boomPlane(e){
+            let oBoomP=document.createElement("img");
+            oBoomP.src="img/boom_big.png";
+            oBoomP.width=e.width;
+            oBoomP.height=e.height;
+            oBoomP.className="boom";
+            oBoomP.style.left=e.style.left;
+            oBoomP.style.top=e.style.top;
+            oGame.appendChild(oBoomP);
+            setTimeout(()=>{oGame.removeChild(oBoomP);},1500  
+            )
+        }
+        function gameover(){
+            oGameover.style.display="block";
+            score.style.display="none";
+            boold.style.display="none";
+            oGameover.style.backgroundImage=`${oGame.style.backgroundImage}`;
+            oGame.style.display="none";
+            finalScore.innerText=mark;
+            console.log(finalScore.innerHTML);
+        }
+        oReplay.addEventListener("click",replay,false)
+            function  replay(){
+                mark=0;
+                score.innerHTML=0;
+                oGame.innerHTML=null;
+                oGame.style.display="none";
+                oGameover.style.display="none";
+                oDiff.style.display="block";
+            }
+        
+    </script>
+</body>
+<html>
