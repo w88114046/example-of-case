@@ -1,0 +1,82 @@
+@charset "uft-8";
+.head{
+	width: 100%;
+	min-width: 1295px;
+	height: 70px;
+	background-color: #232325;
+	vertical-align:middle
+}
+.logo{
+	float:left;
+	margin:10px 0 0 22px;
+}
+.serch{
+	float:left;
+	margin-top:10px;
+	margin-left:300px;
+}
+.serch-area{
+	float:left;
+	width: 222px;
+	height: 42px;
+	border:0;
+	border-radius:18px 0px 0px 18px;
+	outline:none;
+	background-color: rgb(70,70,70);
+	font-size:16px;
+	text-indent:15px;
+}
+.photo{
+	float:left;
+	width: 30px;
+	height: 36px;
+	padding: 8px 10px 0 10px;	
+	background-color: rgb(70,70,70);
+}
+.searchFor{
+	float:right;
+	width: 95px;
+	height: 44px;
+	border-radius:0px 18px 18px 0px;
+	background-color: rgb(0,189,15);
+}
+.searchFor a{
+	display:block;
+	width: 95px;
+	height: 44px;
+	font-size: 16px;
+	color:white;
+	line-height:44px;
+	text-align:center;
+}
+.photo:hover i{
+	color:rgb(0,189,15);
+}
+.searchFor:hover{
+	background-color: rgb(0,199,15);
+}
+.menu-area{
+	float:left;
+	height: 44px;
+	margin-left:160px;
+	color:rgb(152,152,152);
+}
+.menu-area a{
+	font-size:14px;
+	color:rgb(152,152,152);
+	text-align:center;}
+li{
+	float:left;
+	margin:0px 12px 0 12px;
+}
+li div{
+	width: 22px;
+	height: 22px;
+	margin-top:10px;
+	margin-bottom:5px;
+	padding-left:4px;
+}
+.land div{	padding-left:25px;}
+.vip div{
+	background: url("../images/head/sprite-vip-rank20180620.png") no-repeat -210px -62px ;
+}

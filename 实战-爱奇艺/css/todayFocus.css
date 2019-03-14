@@ -1,0 +1,81 @@
+@charset "uft-8";
+.todayFocus{
+	padding: 32px 0px 0px 32px;
+}
+.todayFocus div{
+	margin-bottom: 20px;
+}
+.todayFocus a{
+	font-size:16px;
+	color: #000;
+}
+.todayFocus a:hover{
+	color:rgb(0,189,15);
+}
+.sprites-body{
+	display: inline-block;
+	width: 30px;
+	height: 27px;
+	margin-bottom: 0;
+	background: url("../images/sprites/sprite-channelTitle-icons@2x.png") no-repeat 0px 0px/400px;
+	vertical-align:middle;
+}
+.todayFocus .sprites-body1{margin-bottom:10px;}
+.todayFocus-title{
+	position: relative;
+	margin-bottom: 39px;}
+.todayFocus  p{
+	display: inline-block;
+	margin: 0;
+	font-size:24px;
+	text-align:center;
+	font-weight: bold;
+}
+em{color:rgb(0,189,15) ;}
+.todayFocus-int p{
+	font-size:20px;
+	font-weight:normal;
+}
+.todayFocus-con-pic{
+	display: inline-block;
+	width: 212px;
+	overflow: hidden;
+}
+.todayFocus-con-pic img{transition:1s;}
+.todayFocus-con-pic:hover img{
+	transform:scale(1.1);
+}
+.todayFocus-int{
+	display: inline-block;
+	width: 429px;
+	overflow: hidden;
+	background-color: #f8f8f8;
+}
+.todayFocus-con-pic2{
+	position: relative;
+	overflow: hidden;
+}
+.todayFocus-con-pic2 img{transition:1s;}
+.todayFocus-con-pic2:hover img{
+	transform:scale(1.1);
+}
+.todayFocus-con-pic-int{
+	position: absolute;
+	bottom:-13px;
+	left:0px;
+	width: 400px;
+	padding: 10px 13px 0;
+	background-color: rgba(0,0,0,.5);
+}
+.todayFocus-con-pic-int div{
+	padding-left:22px ;
+	font-size:14px;
+	color: #fff;
+}
+.todayFocus-con-pic-int .special{
+	float:right;
+}
+.todayFocus-con-pic-int a{
+color: #fff;
+}
+.todayFocus-int-s div{margin-bottom: 17px;;}

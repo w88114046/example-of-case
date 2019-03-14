@@ -1,0 +1,123 @@
+@charset "uft-8";
+.right-nav{
+	position:absolute;
+	top:70px;
+	left:1040px;
+	width: 277px;
+	height: 450px;
+	background-color:rgba(0,0,0,.5);
+}
+.right-nav ul{
+	padding: 5px 22px;
+}
+.right-nav ul li{
+	margin-top:19px;
+}
+.right-nav a{
+	color:#fff;
+	font-size:14px;
+}
+.right-nav a:hover {
+    color: rgb(0,189,15);
+}
+.bottom-nav{
+	position: absolute;
+	top:520px;
+	width: 100%;
+	min-width: 1295px;
+	height: 88px;
+	background-color: #000;
+}
+.b-nav{
+	display: inline-block;
+	background: url("../images/head/nav-item-1335Bg-180425.png") no-repeat 100% 10px;
+}
+.bottom-nav1{
+/* 	width: 245px; */
+	padding: 20px 0px 0px 30px;
+}
+.b-nav ul{
+	display:inline-block;
+	margin-right:15px ;
+}
+.b-nav ul li{
+	margin-bottom: 8px;
+}
+.b-nav a{
+	color:rgb(203,203,203);
+	font-size:14px;
+}
+.b-nav a:hover{
+	 color: rgb(0,189,15);
+}
+.bottom-nav2{
+/* 	width: 187px; */
+	padding: 20px 0px 0px 20px;
+}
+.bottom-nav3{
+/* 	width: 345px; */
+	padding: 20px 0px 0px 20px;
+}
+.bottom-nav4{
+/* 	width: 345px; */
+	padding: 20px 0px 0px 20px;
+}
+.bottom-nav5{
+	position:relative ;
+	width:39px ;
+	height: 30px;
+}
+.bottom-nav5 img{
+	position: absolute;
+	top:-17px;
+	left:8px;
+	float: right;
+	width:39px ;
+	height: 30px;
+}
+.bottom-nav5 p{
+	color:rgb(212,149,72);
+	white-space:nowrap;
+}
+.bottom-nav li{
+	position: relative;
+}
+.b-nav-int{display: none;}
+.triangle-bottom{
+	position: absolute;
+	top:-5px;
+	left:0px;
+	width:0;
+	height: 0;
+	border:10px solid rgb(44,45,47);
+	border-bottom-color:transparent;
+	border-left-color:transparent;
+	border-right-color:transparent;
+}
+li .b-nav-int1{
+	position: absolute;
+	bottom:25px;
+	left:-35px;
+	width: 475px;
+	padding: 20px 10px 20px 20px ;
+	background-color: rgb(44,45,47);
+	z-index: 2;
+}
+.b-nav-int1 .movie-int{
+	padding-top: 16px;
+}
+.movie-int .movie1{
+	display: inline-block;
+	width: 105px;
+	height: 140px;
+	margin-right: 10px;
+}
+li:hover .b-nav-int{
+	display: block;
+}
+.b-nav-int a:hover img{
+	transform:scale(1.1);
+}
+.movie1 img{
+	transition:1s; 	
+}
