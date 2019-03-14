@@ -1,0 +1,205 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<title>Document</title>
+		 <style>
+			*{margin: 0;padding: 0;}
+			ul,ol{list-style:none;}
+			a{text-decoration:none;}
+			img{border:0;}
+			body{background-color:red;}
+			.box1{
+				position:relative;
+				width:900px;
+				height:200px;
+				margin:125px 0 0 100px;
+			}
+			.box2{
+				position:absolute;
+				left:10px;
+				width:26px;
+				height:16px;
+				background-color:rgb(0,254,0);
+				border-radius:6px;
+				transition:2s;
+				animation: cap 2s infinite linear;
+			}
+			.box3{
+				position:absolute;
+				z-index:3;
+				top:13px;
+				left:0px;
+				width:50px;
+				height:16px;
+				background-color:rgb(0,254,0);
+				transition:2s;
+				animation: cap 2s infinite linear;
+			}
+			.box4{
+				position:absolute;
+				top:16px;
+				left:5px;
+				width:28px;
+				height:28px;
+				border:5px solid white;
+				border-radius:50px;
+				transition:2s;
+				animation: heads 2s infinite linear;
+			}
+			.box5{
+				position:absolute;
+				z-index:2;
+				top:53px;
+				left:25px;
+				width:40px;
+				height:50px;
+				border-left:3px solid yellow;
+				border-bottom:3px solid yellow;
+				transition:2s;
+				transform-origin:top left;
+				animation: hand1 2s infinite linear;
+			}
+			.box6{
+				position:absolute;
+				z-index:2;
+				top:53px;
+				left:25px;
+				width:40px;
+				height:50px;
+				border-left:3px solid yellow;
+				border-bottom:3px solid yellow;
+				transition:2s;
+				transform-origin:top left;
+				animation: hand2 2s infinite linear;
+			}
+			.box7{
+				position:absolute;
+				top:50px;
+				left:23px;
+				height:58px;
+				border-left:3px solid white;
+				animation: bdoy 2s infinite linear;
+			}
+			.box8{
+				position:absolute;
+				top:108px;
+				left:23px;
+				width:75px;	
+				height:75px;
+				border-right:3px solid skyblue;
+				border-top:3px solid skyblue;
+				transition:2s;
+				transform-origin:top left;
+				animation: foot1 2s infinite linear;
+			}
+			.box9{
+				position:absolute;
+				top:108px;
+				left:23px;
+				width:75px;	
+				height:75px;
+				border-right:3px solid skyblue;
+				border-top:3px solid skyblue;
+				transition:2s;
+				transform-origin:top left;
+				animation: foot2 2s infinite linear;
+			}
+			@keyframes bdoy{
+				100%{left:1366px;}
+			}
+			@keyframes cap{
+				0% {transform: rotate(0deg);}
+				10% {transform: rotate(15deg);}
+				20% {transform: rotate(0deg);}
+				30% {transform: rotate(-15deg);}
+				40% {transform: rotate(0deg);}
+				50% {transform: rotate(15deg);}
+				60% {transform: rotate(0deg);}
+				70% {transform: rotate(-15deg);}
+				80% {transform: rotate(0deg);}
+				90% {transform: rotate(15deg);}
+				100% {transform: rotate(0deg);left:1366px;}
+			}
+			@keyframes heads{
+				0% {transform: skew(0deg);}
+				10% {transform: skew(15deg);}
+				20% {transform: skew(0deg);}
+				30% {transform: skew(-15deg);}
+				40% {transform: skew(0deg);}
+				50% {transform: skew(15deg);}
+				60% {transform: skew(0deg);}
+				70% {transform: skew(-15deg);}
+				80% {transform: skew(0deg);}
+				90% {transform: skew(15deg);}
+				100% {transform: skew(0deg);left:1366px;}
+			}
+			@keyframes hand1{
+				0% {transform: rotate(0deg);}
+				10% {transform: rotate(90deg);}
+				20% {transform: rotate(0deg);}
+				30% {transform: rotate(90deg);}
+				40% {transform: rotate(0deg);}
+				50% {transform: rotate(90deg);}
+				60% {transform: rotate(0deg);}
+				70% {transform: rotate(90deg);}
+				80% {transform: rotate(0deg);}
+				90% {transform: rotate(90deg);}
+				100% {transform: rotate(0deg);left:1366px;}
+			}
+			@keyframes hand2{
+				0% {transform: rotate(0deg);}
+				10% {transform: rotate(-90deg);}
+				20% {transform: rotate(0deg);}
+				30% {transform: rotate(-90deg);}
+				40% {transform: rotate(0deg);}
+				50% {transform: rotate(-90deg);}
+				60% {transform: rotate(0deg);}
+				70% {transform: rotate(-90deg);}
+				80% {transform: rotate(0deg);}
+				90% {transform: rotate(-90deg);}
+				100% {transform: rotate(0deg);left:1366px;}
+			}
+			@keyframes foot1{
+				0% {transform: rotate(90deg);}
+				10% {transform: rotate(180deg);}
+				20% {transform: rotate(90deg);}
+				30% {transform: rotate(180deg);}
+				40% {transform: rotate(90deg);}
+				50% {transform: rotate(180deg);}
+				60% {transform: rotate(90deg);}
+				70% {transform: rotate(180deg);}
+				80% {transform: rotate(90deg);}
+				90% {transform: rotate(180deg);}
+				100% {transform: rotate(0deg);left:1366px;}
+			}
+			@keyframes foot2{
+				0% {transform: rotate(90deg);}
+				10% {transform: rotate(0deg);}
+				20% {transform: rotate(90deg);}
+				30% {transform: rotate(0deg);}
+				40% {transform: rotate(90deg);}
+				50% {transform: rotate(0deg);}
+				60% {transform: rotate(90deg);}
+				70% {transform: rotate(0deg);}
+				80% {transform: rotate(90deg);}
+				90% {transform: rotate(0deg);}
+				100% {transform: rotate(90deg);left:1366px;}
+			}
+		 </style>
+	</head>
+	<body>
+		<div class="box1">
+			<div class="box2"></div><!--帽子上-->
+			<div class="box3"></div><!--帽子下-->
+			<div class="box4"></div><!--头-->
+			<div class="box5"></div><!--手左-->
+			<div class="box6"></div><!--手右-->
+			<div class="box7"></div><!--身体-->
+			<div class="box8"></div><!--脚1-->
+			<div class="box9"></div><!--脚2-->
+		</div>
+	</body>
+</html>
